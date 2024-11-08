@@ -4,6 +4,8 @@ import api from "../services/api";
 
 const ReservationContext = createContext();
 
-const PatientProvider = ({ children }) => {
-    
+const ReservationProvider = ({ children }) => {
+
 }
+
+export { ReservationContext, ReservationProvider };
