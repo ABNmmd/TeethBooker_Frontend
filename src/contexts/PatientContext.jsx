@@ -20,7 +20,7 @@ const PatientProvider = ({ children }) => {
     // to update patient data
     const updatePatient = async (id, newPatientData) => {
         try {
-            const response = await api.put(`/posts/${id}`, newPatientData);
+            const response = await api.put(`/patient/${id}`, newPatientData);
             return response;
         } catch (error) {
             console.error('Error updatting the patient ', error);
@@ -30,7 +30,7 @@ const PatientProvider = ({ children }) => {
     // to delet the patient
     const deletePatient = async (id) => {
         try {
-            const response = await api.delete(`/posts/${id}`);
+            const response = await api.delete(`/patient/${id}`);
             return response;
         } catch (error) {
             console.error('Error deleting the patient ', error);
