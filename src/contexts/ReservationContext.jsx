@@ -26,6 +26,18 @@ const ReservationProvider = ({ children }) => {
         }
     }
 
+    // update reservation
+    const updateReservation = async (reservationId, data) => {
+        try {
+            const response = await api.put(`/reservation/${reservationId}`, data);
+            return response.data;
+        } catch (error) {
+            console.error('Error updating Reservation', error);
+        }
+    }
+
+    
+
     <ReservationContext.Provider
         value={{
             createReservation,
