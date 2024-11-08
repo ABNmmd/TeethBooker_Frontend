@@ -45,3 +45,5 @@ const PatientProvider = ({ children }) => {
         </PatientContext.Provider>
     );
 }
+
+export {PatientContext, PatientProvider};
