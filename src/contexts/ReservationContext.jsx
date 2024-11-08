@@ -37,7 +37,7 @@ const ReservationProvider = ({ children }) => {
     }
 
     // get patient history
-    const getPatientHistory = async (patientId) => {
+    const getPatientHistory = async () => {
         try {
             const response = await api.get(`/reservation_history/`);
             return response.data;
@@ -45,6 +45,17 @@ const ReservationProvider = ({ children }) => {
             console.error('Error getting Patient History', error);
         }
     }
+
+    // create patient history
+    const createPatientHistory = async (data) => {
+        try {
+            const response = await api.post('/reservation_history', data);
+            return response.data;
+        } catch (error) {
+            console.error('Error creating Patient History', error);
+        }
+    }
+
 
     <ReservationContext.Provider
         value={{
