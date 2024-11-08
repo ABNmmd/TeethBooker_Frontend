@@ -5,8 +5,9 @@ import api from "../services/api";
 const PatientContext = createContext();
 
 const PatientProvider = ({ children }) => {
-    const [patient, setPatient] = useState({});
+    const [patient, setPatient] = useState({}); // save patient data
 
+    // to get patient data
     const getPatient = async (id) => {
         try {
             const patientData = await api.get(`/patient/${id}`);
@@ -16,6 +17,7 @@ const PatientProvider = ({ children }) => {
         }
     }
 
+    // to update patient data
     const updatePatient = async (id, newPatientData) => {
         try {
             const response = await api.put(`/posts/${id}`, newPatientData);
@@ -25,6 +27,7 @@ const PatientProvider = ({ children }) => {
         }
     }
 
+    // to delet the patient
     const deletePatient = async (id) => {
         try {
             const response = await api.delete(`/posts/${id}`);
