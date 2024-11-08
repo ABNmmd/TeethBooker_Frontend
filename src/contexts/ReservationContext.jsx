@@ -6,6 +6,9 @@ const ReservationContext = createContext();
 
 const ReservationProvider = ({ children }) => {
 
+    <ReservationContext.Provider value={{  }}>
+        {children}
+    </ReservationContext.Provider>
 }
 
 export { ReservationContext, ReservationProvider };
