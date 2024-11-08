@@ -30,7 +30,7 @@ const PatientProvider = ({ children }) => {
             const response = await api.delete(`/posts/${id}`);
             return response;
         } catch (error) {
-            
+            console.error('Error deleting the patient ', error);
         }
     }
 }
