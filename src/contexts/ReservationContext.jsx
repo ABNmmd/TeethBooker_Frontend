@@ -36,15 +36,23 @@ const ReservationProvider = ({ children }) => {
         }
     }
 
-    
+    // get patient history
+    const getPatientHistory = async (patientId) => {
+        try {
+            const response = await api.get(`/reservation_history/`);
+            return response.data;
+        } catch (error) {
+            console.error('Error getting Patient History', error);
+        }
+    }
 
     <ReservationContext.Provider
         value={{
             createReservation,
             getReservation,
             updateReservation,
-            getReservationHistory,
-            createReservationHistory
+            getPatientHistory,
+            createPatientHistory
         }}>
         {children}
     </ReservationContext.Provider>
