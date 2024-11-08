@@ -16,5 +16,21 @@ const PatientProvider = ({ children }) => {
         }
     }
 
-    const 
+    const updatePatient = async (id, newPatientData) => {
+        try {
+            const response = await api.put(`/posts/${id}`, newPatientData);
+            return response;
+        } catch (error) {
+            console.error('Error updatting the patient ', error);
+        }
+    }
+
+    const deletePatient = async (id) => {
+        try {
+            const response = await api.delete(`/posts/${id}`);
+            return response;
+        } catch (error) {
+            
+        }
+    }
 }
