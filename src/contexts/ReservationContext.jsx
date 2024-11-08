@@ -16,6 +16,16 @@ const ReservationProvider = ({ children }) => {
         }
     }
 
+    // get reservation
+    const getReservation = async () => {
+        try {
+            const response = await api.get(`/reservation`);
+            return response.data;
+        } catch (error) {
+            console.error('Error getting Reservation', error);
+        }
+    }
+
     <ReservationContext.Provider
         value={{
             createReservation,
