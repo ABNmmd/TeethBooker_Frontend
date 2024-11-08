@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import api from "../services/api";
 
 
@@ -33,4 +33,15 @@ const PatientProvider = ({ children }) => {
             console.error('Error deleting the patient ', error);
         }
     }
+
+    // modify this later
+    useEffect(() => {
+        
+    }, []);
+
+    return (
+        <PatientContext.Provider value={{ patient, setPatient, getPatient, updatePatient, deletePatient }}>
+            {children}
+        </PatientContext.Provider>
+    );
 }
