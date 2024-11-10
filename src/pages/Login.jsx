@@ -4,9 +4,15 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [error, setError] = useState('');
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+        try {
+            
+        } catch (error) {
+            setError(error);
+        }
     };
 
     return (
@@ -34,6 +40,7 @@ function Login() {
                             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
                         />
                     </div>
+                    {error && <p className='text-xs text-red-600 capitalize'>{error}</p>}
                     <button
                         type="submit"
                         className="w-full p-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
