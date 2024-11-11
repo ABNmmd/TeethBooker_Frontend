@@ -4,6 +4,7 @@ import api from './api';
 const login = async (credentials) => {
     try {
         const response = await api.post('/login', credentials);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Error logging in:', error);
@@ -11,10 +12,11 @@ const login = async (credentials) => {
     }
 };
 
-// API call to register
+// API call to registerPatient
 const registerPatient = async (credentials) => {
     try {
         const response = await api.post('/patient/register', credentials);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Error registring:', error);
@@ -22,9 +24,11 @@ const registerPatient = async (credentials) => {
     }
 };
 
+// API call to registerDoctor
 const registerDoctor = async (credentials) => {
     try {
         const response = await api.post('/doctor/register', credentials);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Error registring:', error);
@@ -36,6 +40,7 @@ const registerDoctor = async (credentials) => {
 const logout = async () => {
     try {
         const response = await api.post('/logout');
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Error during logout:', error);
