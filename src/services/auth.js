@@ -48,3 +48,10 @@ const logout = async () => {
     }
 };
 
+export {
+    login,
+    registerPatient,
+    registerDoctor,
+    logout
+}
+
