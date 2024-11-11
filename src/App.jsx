@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login"
 import NotFound from "./pages/NotFound";
+import Register from "./pages/Register";
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
     },
     {
       path: "/register",
-      element: null,
+      element: <Register />,
     },
     {
       path: "/login",
