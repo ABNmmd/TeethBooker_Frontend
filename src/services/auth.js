@@ -12,9 +12,19 @@ const login = async () => {
 };
 
 // API call to register
-const register = async () => {
+const registerPatient = async () => {
     try {
-        const response = await api.post('/register', credentials);
+        const response = await api.post('/patient/register', credentials);
+        return response.data;
+    } catch (error) {
+        console.error('Error registring:', error);
+        throw error;
+    }
+};
+
+const registerDoctor = async () => {
+    try {
+        const response = await api.post('/doctor/register', credentials);
         return response.data;
     } catch (error) {
         console.error('Error registring:', error);
