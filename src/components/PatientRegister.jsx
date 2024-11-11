@@ -125,6 +125,7 @@ function PatientRegister() {
                     </select>
                 </div>
             </div>
+            {error && <p className='text-xs text-red-600'>{error}</p>}
             <button
                 type="submit"
                 className="w-full p-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
