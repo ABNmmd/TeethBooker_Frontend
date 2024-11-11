@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react'
 const inp = "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300";
 
 function PatientRegister() {
-    const [pageNb, setPageNb] = useState(0); // handle pages
-
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -18,6 +16,7 @@ function PatientRegister() {
 
     // password error
     const [passwordError, setPasswordError] = useState("");
+    const [error, setError] = useState("");
 
 
     useEffect(() => {
@@ -40,9 +39,9 @@ function PatientRegister() {
         e.preventDefault();
         // validate form fields
         if (!fullName || !email || !phone || !password || !confirmPassword)
-            return alert('Please fill all fields');
+            return setError('Please fill all fields');
         if (password !== confirmPassword)
-            return alert('Passwords do not match');
+            return setError('Passwords do not match');
         // send data to server
         console.log(fullName, email, phone, password, age, gender);
         alert('Registration successful');
