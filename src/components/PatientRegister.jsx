@@ -147,4 +147,4 @@ function PatientRegister() {
     )
 }
 
-export default PatientRegister
+export default PatientRegister;
