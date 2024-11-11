@@ -1,7 +1,7 @@
 import api from './api';
 
 // API call to login
-const login = async () => {
+const login = async (credentials) => {
     try {
         const response = await api.post('/login', credentials);
         return response.data;
@@ -12,7 +12,7 @@ const login = async () => {
 };
 
 // API call to register
-const registerPatient = async () => {
+const registerPatient = async (credentials) => {
     try {
         const response = await api.post('/patient/register', credentials);
         return response.data;
@@ -22,7 +22,7 @@ const registerPatient = async () => {
     }
 };
 
-const registerDoctor = async () => {
+const registerDoctor = async (credentials) => {
     try {
         const response = await api.post('/doctor/register', credentials);
         return response.data;
