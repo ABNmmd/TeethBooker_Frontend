@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { registerPatient } from '../services/auth'
+import { Navigate } from 'react-router-dom';
 
 const inp = "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300";
 
@@ -57,6 +58,7 @@ function PatientRegister() {
                 //"6733d44f48954128c70b8664|nVsTZKylPMCDLGLYbH93tx4u5uPDMTgCVWHxkNNBa52f0953"
                 document.cookie = `token=${response.data.token}; expires=Fri, 31 Dec 999`;
                 // redirect to dashboard
+                // Navigate("/dashboard");
             }
         } catch (error) {
             setError(error.message);
