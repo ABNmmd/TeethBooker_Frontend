@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import registerPatient from '../services/auth';
-
+import { registerPatient } from '../services/auth'
 
 const inp = "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300";
 
@@ -38,12 +37,12 @@ function PatientRegister() {
     // handle form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // validate form fields
-        if (!fullName || !email || !phone || !password || !confirmPassword)
-            return setError('Please fill all fields');
-        // send data to server
-        console.log(fullName, email, phone, password, age, gender);
         try {
+            // validate form fields
+            if (!fullName || !email || !phone || !password || !confirmPassword)
+                return setError('Please fill all fields');
+            // send data to server
+            console.log(fullName, email, phone, password, age, gender);
             const response = await registerPatient({
                 full_name: fullName,
                 email,
@@ -54,6 +53,7 @@ function PatientRegister() {
             });
             console.log("Patient user regesterd 200", response);
         } catch (error) {
+            console.log("Error registering patient user", error);
             setError(error.message);
         }
     }
