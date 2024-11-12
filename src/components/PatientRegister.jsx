@@ -52,6 +52,12 @@ function PatientRegister() {
                 gender
             });
             console.log("Patient user regesterd 200", response);
+            // store the token in cokies
+            if (response) {
+                //"6733d44f48954128c70b8664|nVsTZKylPMCDLGLYbH93tx4u5uPDMTgCVWHxkNNBa52f0953"
+                document.cookie = `token=${response.data.token}; expires=Fri, 31 Dec 999`;
+                // redirect to dashboard
+            }
         } catch (error) {
             setError(error.message);
         }
