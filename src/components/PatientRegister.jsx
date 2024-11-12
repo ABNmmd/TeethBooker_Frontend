@@ -53,7 +53,6 @@ function PatientRegister() {
             });
             console.log("Patient user regesterd 200", response);
         } catch (error) {
-            console.log("Error registering patient user", error);
             setError(error.message);
         }
     }
