@@ -42,7 +42,7 @@ function PatientRegister() {
             if (!fullName || !email || !phone || !password || !confirmPassword)
                 return setError('Please fill all fields');
             // send data to server
-            console.log(fullName, email, phone, password, age, gender);
+            // console.log(fullName, email, phone, password, age, gender);
             const response = await registerPatient({
                 full_name: fullName,
                 email,
