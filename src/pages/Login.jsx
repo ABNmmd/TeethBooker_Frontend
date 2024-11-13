@@ -19,8 +19,8 @@ function Login() {
             document.cookie = `token=${response.token}; expires=${expires.toUTCString()}; path=/`;
             navigate("/dashboard");
         } catch (error) {
-            c
-            setError(error);
+            console.log(error.message);
+            setError(error.message);
         }
     };
 
