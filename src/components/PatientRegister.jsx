@@ -59,7 +59,8 @@ function PatientRegister() {
             console.log("Patient user regesterd 200", response);
             // store the token in cokies
             //"6733d44f48954128c70b8664|nVsTZKylPMCDLGLYbH93tx4u5uPDMTgCVWHxkNNBa52f0953"
-            document.cookie = `token=${response.data.token}; expires=Fri, 31 Dec 999`;
+            const expires = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 days in milliseconds
+            document.cookie = `token=${response.token}; expires=${expires.toUTCString()}`;
             // redirect to dashboard
             navigate("/dashboard");
         } catch (error) {
@@ -151,9 +152,10 @@ function PatientRegister() {
             {error && <p className='text-xs text-red-600'>{error}</p>}
             <button
                 type="submit"
-                className="w-full p-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
+                className={`w-full p-2 text-white ${loading ? 'bg-gray-400' : 'bg-blue-600'} rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300`}
+                disabled={loading}
             >
-                Register
+                {loading ? 'Registering...' : 'Register'}
             </button>
         </form>
     )
