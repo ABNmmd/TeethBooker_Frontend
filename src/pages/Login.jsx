@@ -11,6 +11,7 @@ function Login() {
 
     const [isSafe, setIsSafe] = useState(false);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -20,11 +21,11 @@ function Login() {
             setError('Please fill in all fields');
             return;
         }
-        
+
         if (password && password.length < 8) {
             return setError("Password must be at least 8 characters");
         }
-
+        setLoading(true);
         try {
             // API call to login
             const response = await login({ email, password });
@@ -35,6 +36,8 @@ function Login() {
         } catch (error) {
             console.log(error.message);
             setError(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -63,16 +66,27 @@ function Login() {
                             required
                             className={inputStyl}
                         />
-                        { isSafe
-                        ?<CiUnread className="absolute right-3 top-3 text-gray-400 cursor-pointer" onClick={() => setIsSafe(!isSafe)} />
-                        :<CiRead className="absolute right-3 top-3 text-gray-400 cursor-pointer" onClick={() => setIsSafe(!isSafe)} /> }
+                        {isSafe
+                            ? <CiUnread className="absolute right-3 top-3 text-gray-400 cursor-pointer" onClick={() => setIsSafe(!isSafe)} />
+                            : <CiRead className="absolute right-3 top-3 text-gray-400 cursor-pointer" onClick={() => setIsSafe(!isSafe)} />}
                     </div>
                     {error && <p className='text-xs text-red-600 capitalize'>{error}</p>}
                     <button
                         type="submit"
-                        className="w-full p-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
+                        className={`w-full p-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled={loading}
                     >
-                        Login
+                        {loading ? (
+                            <span className="flex items-center justify-center">
+                                <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                </svg>
+                                Loading...
+                            </span>
+                        ) : (
+                            'Login'
+                        )}
                     </button>
                 </form>
                 <p className="text-sm text-center text-gray-600">
