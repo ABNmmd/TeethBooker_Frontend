@@ -18,7 +18,7 @@ function Login() {
             const response = await login({email, password});
             console.log(response);
             const expires = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 days in milliseconds
-            document.cookie = `token=${response.token}; expires=${expires.toUTCString()}; path=/`;
+            document.cookie = `token=${response.token}; expires=${expires.toUTCString()};`;
             navigate("/dashboard");
         } catch (error) {
             console.log(error.message);
