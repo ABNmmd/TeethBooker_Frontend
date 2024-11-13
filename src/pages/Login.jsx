@@ -59,7 +59,7 @@ function Login() {
                     </div>
                     <div className='relative'>
                         <input
-                            type="password"
+                            type={isSafe ? "text" : "password"}
                             value={password}
                             placeholder='Password'
                             onChange={(e) => setPassword(e.target.value)}
