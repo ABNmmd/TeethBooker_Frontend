@@ -19,6 +19,7 @@ function PatientRegister() {
     const [passwordError, setPasswordError] = useState("");
     const [error, setError] = useState("");
 
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
 
@@ -45,6 +46,7 @@ function PatientRegister() {
             return setError('Please fill all fields');
         // send data to server
         // console.log(fullName, email, phone, password, age, gender);
+        setLoading(true);
         try {
             const response = await registerPatient({
                 full_name: fullName,
@@ -62,6 +64,8 @@ function PatientRegister() {
             navigate("/dashboard");
         } catch (error) {
             setError(error.message);
+        } finally {
+            setLoading(false);
         }
     }
 
