@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { login } from '../services/auth'
 import { useNavigate } from 'react-router-dom';
+import { CiMail, CiRead, CiUnread } from "react-icons/ci";
 
 const inputStyl = "w-full p-2 border border-gray-300 rounded-md focus:outline-none";
 
@@ -8,6 +9,7 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [isSafe, setIsSafe] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ function Login() {
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold text-center">Login</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
+                    <div className='relative'>
                         <input
                             type="email"
                             value={email}
@@ -50,8 +52,9 @@ function Login() {
                             required
                             className={inputStyl}
                         />
+                        <CiMail className="absolute right-3 top-3 text-gray-400" />
                     </div>
-                    <div>
+                    <div className='relative'>
                         <input
                             type="password"
                             value={password}
@@ -60,6 +63,9 @@ function Login() {
                             required
                             className={inputStyl}
                         />
+                        { isSafe
+                        ?<CiUnread className="absolute right-3 top-3 text-gray-400 cursor-pointer" onClick={() => setIsSafe(!isSafe)} />
+                        :<CiRead className="absolute right-3 top-3 text-gray-400 cursor-pointer" onClick={() => setIsSafe(!isSafe)} /> }
                     </div>
                     {error && <p className='text-xs text-red-600 capitalize'>{error}</p>}
                     <button
