@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+const inputStyl = "w-full p-2 border border-gray-300 rounded-md focus:outline-none";
+
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -21,23 +23,23 @@ function Login() {
                 <h2 className="text-2xl font-bold text-center">Login</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Email</label>
                         <input
                             type="email"
                             value={email}
+                            placeholder='Email'
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                            className={inputStyl}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Password</label>
                         <input
                             type="password"
                             value={password}
+                            placeholder='Password'
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                            className={inputStyl}
                         />
                     </div>
                     {error && <p className='text-xs text-red-600 capitalize'>{error}</p>}
