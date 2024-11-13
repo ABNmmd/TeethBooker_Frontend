@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { login } from '../services/auth'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CiMail, CiRead, CiUnread } from "react-icons/ci";
 
 const inputStyl = "w-full p-2 border border-gray-300 rounded-md focus:outline-none";
@@ -90,7 +90,7 @@ function Login() {
                     </button>
                 </form>
                 <p className="text-sm text-center text-gray-600">
-                    Don't have an account? <a href="/register" className="text-blue-600 hover:underline">Register</a>
+                    Don't have an account? <Link to="/register" className="text-blue-600 hover:underline">Register</Link>
                 </p>
             </div>
         </div>
