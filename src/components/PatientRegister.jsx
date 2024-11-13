@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { registerPatient } from '../services/auth'
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const inp = "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300";
 
@@ -18,6 +18,8 @@ function PatientRegister() {
     // password error
     const [passwordError, setPasswordError] = useState("");
     const [error, setError] = useState("");
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -38,12 +40,12 @@ function PatientRegister() {
     // handle form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // validate form fields
+        if (!fullName || !email || !phone || !password || !confirmPassword)
+            return setError('Please fill all fields');
+        // send data to server
+        // console.log(fullName, email, phone, password, age, gender);
         try {
-            // validate form fields
-            if (!fullName || !email || !phone || !password || !confirmPassword)
-                return setError('Please fill all fields');
-            // send data to server
-            // console.log(fullName, email, phone, password, age, gender);
             const response = await registerPatient({
                 full_name: fullName,
                 email,
@@ -54,12 +56,10 @@ function PatientRegister() {
             });
             console.log("Patient user regesterd 200", response);
             // store the token in cokies
-            if (response) {
-                //"6733d44f48954128c70b8664|nVsTZKylPMCDLGLYbH93tx4u5uPDMTgCVWHxkNNBa52f0953"
-                document.cookie = `token=${response.data.token}; expires=Fri, 31 Dec 999`;
-                // redirect to dashboard
-                // Navigate("/dashboard");
-            }
+            //"6733d44f48954128c70b8664|nVsTZKylPMCDLGLYbH93tx4u5uPDMTgCVWHxkNNBa52f0953"
+            document.cookie = `token=${response.data.token}; expires=Fri, 31 Dec 999`;
+            // redirect to dashboard
+            navigate("/dashboard");
         } catch (error) {
             setError(error.message);
         }
@@ -138,6 +138,7 @@ function PatientRegister() {
                         onChange={(e) => setGender(e.target.value)}
                         className={`${inp}`}
                     >
+                        <option value="">Select Gender</option>
                         <option value="female" name="female">Female</option>
                         <option value="male" name="male">Male</option>
                     </select>
