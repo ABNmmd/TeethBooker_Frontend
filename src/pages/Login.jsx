@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { login } from '../services/auth'
+import { useNavigate } from 'react-router-dom';
 
 const inputStyl = "w-full p-2 border border-gray-300 rounded-md focus:outline-none";
 
@@ -8,6 +9,7 @@ function Login() {
     const [password, setPassword] = useState('');
 
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
