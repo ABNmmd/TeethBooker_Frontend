@@ -58,7 +58,6 @@ function PatientRegister() {
             });
             console.log("Patient user regesterd 200", response);
             // store the token in cokies
-            //"6733d44f48954128c70b8664|nVsTZKylPMCDLGLYbH93tx4u5uPDMTgCVWHxkNNBa52f0953"
             const expires = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 days in milliseconds
             document.cookie = `token=${response.token}; expires=${expires.toUTCString()}`;
             // redirect to dashboard
