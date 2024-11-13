@@ -13,9 +13,19 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // validate data
+        if (!email || !password) {
+            setError('Please fill in all fields');
+            return;
+        }
+        
+        if (password && password.length < 8) {
+            return setError("Password must be at least 8 characters");
+        }
+
         try {
             // API call to login
-            const response = await login({email, password});
+            const response = await login({ email, password });
             console.log(response);
             const expires = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 days in milliseconds
             document.cookie = `token=${response.token}; expires=${expires.toUTCString()};`;
