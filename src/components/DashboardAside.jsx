@@ -10,24 +10,24 @@ function DashboardAside({ arr = [] }) {
                 <ul className="flex-grow space-y-4 mb-auto px-3">
                     <li className="">
                         <a href="/dashboard" aria-label="Dashboard"
-                            className="flex items-center text-gray-800 hover:text-blue-600 transition-colors"
+                            className="flex items-center text-gray-500 w-full p-2"
                         >
-                            <RxDashboard className="mr-4 text-gray-600" />
-                            Dashboard
+                            <RxDashboard className="mr-4" />
+                            <span>Dashboard</span>
                         </a>
                     </li>
                     {
                         arr.map((item, index) => (
-                            <li key={index} className="">
+                            <li key={index} className="transition-transform duration-200 transform hover:bg-blue-700 rounded-md">
                                 <button
                                     onClick={() => console.log(`Clicked on ${item.name}`)}
-                                    className="flex items-center justify-between p-2 w-full text-gray-800 hover:text-blue-600 rounded-lg transition-colors focus:outline-none"
+                                    className="flex items-center justify-between w-full p-2 text-gray-500 hover:text-white transition-colors focus:outline-none"
                                 >
                                     <div className="flex items-center">
                                         {item.icon}
-                                        <span className="ml-2">{item.name}</span>
+                                        <span>{item.name}</span>
                                     </div>
-                                    <MdArrowForwardIos className="text-gray-600" />
+                                    <MdArrowForwardIos className="text-sm" />
                                 </button>
                             </li>
                         )

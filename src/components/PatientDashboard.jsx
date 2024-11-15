@@ -4,8 +4,8 @@ import { FaUserDoctor } from "react-icons/fa6";
 import { FaHistory } from "react-icons/fa";
 
 const arr = [
-    {name: 'Doctors', icon: <FaUserDoctor className='mr-4 text-gray-600' />},
-    {name: 'History', icon: <FaHistory className='mr-4 text-gray-600' />},
+    {name: 'Doctors', icon: <FaUserDoctor className='mr-4' />},
+    {name: 'History', icon: <FaHistory className='mr-4' />},
 ];
 
 function PatientDashboard() {
