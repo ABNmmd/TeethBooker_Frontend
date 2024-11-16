@@ -1,9 +1,10 @@
 import React from 'react'
 import DashboardAside from './DashboardAside';
 import { FaUserDoctor } from "react-icons/fa6";
-import { FaHistory } from "react-icons/fa";
+import { FaHistory, FaCalendarAlt } from "react-icons/fa";
 
 const arr = [
+    {name: 'My Appointments', icon: <FaCalendarAlt className='mr-4' />},
     {name: 'Doctors', icon: <FaUserDoctor className='mr-4' />},
     {name: 'History', icon: <FaHistory className='mr-4' />},
 ];
