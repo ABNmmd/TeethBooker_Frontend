@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
 import { RxDashboard } from "react-icons/rx";
 import { MdOutlineExpandMore, MdArrowForwardIos } from "react-icons/md";
+import { CgMenu, CgMenuMotion } from "react-icons/cg";
 
 function DashboardAside({ arr = [] }) {
+    // const [sideBar, setSideBar] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     
     return (
         <aside className="bg-white h-screen w-fit p-4 shadow-md flex flex-col">
-            <h1 className="text-2xl font-bold mb-10 text-center">TeethBooker</h1>
+            <div className='mb-10 flex justify-between items-center px-2'>
+                <h1 className="text-2xl font-bold ">TeethBooker</h1>
+                {/* <button className='text-2xl' onClick={() => setSideBar(!sideBar)}>
+                    {sideBar ? <CgMenuMotion /> : <CgMenu /> }
+                </button> */}
+            </div>
             <nav className='flex flex-col flex-grow'>
                 <ul className="flex-grow space-y-4 mb-auto">
                     <li className="">
@@ -37,7 +45,7 @@ function DashboardAside({ arr = [] }) {
                         )
                     }
                 </ul>
-                <div className="flex-grow-0 flex items-center mt-4">
+                <div className="relative flex-grow-0 flex items-center mt-4">
                     <img src="https://i.pravatar.cc/100" alt="User Avatar" className="w-10 h-10 rounded-full object-cover" />
                     <div className="ml-4">
                         <p className="text-gray-800 text-sm">John Doe</p>
@@ -45,10 +53,20 @@ function DashboardAside({ arr = [] }) {
                     </div>
                     <button
                         aria-label="Expand user options"
-                        className="ml-4 font-bold"
+                        className="ml-4 font-bold text-xl text-gray-600 hover:text-gray-800 transition-colors duration-200"
+                        onClick={() => setIsOpen(!isOpen)}
                     >
                         <MdOutlineExpandMore />
                     </button>
+                    {isOpen && (
+                        <div className="absolute right-0 bottom-11 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                            <ul className="py-2">
+                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Profile</li>
+                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
+                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Logout</li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </nav>
         </aside>
