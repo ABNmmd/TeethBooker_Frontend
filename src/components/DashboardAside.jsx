@@ -3,7 +3,7 @@ import { RxDashboard } from "react-icons/rx";
 import { MdOutlineExpandMore, MdArrowForwardIos } from "react-icons/md";
 import { CgMenu, CgMenuMotion } from "react-icons/cg";
 
-function DashboardAside({ arr = [] }) {
+function DashboardAside({ arr = [], setPage }) {
     // const [sideBar, setSideBar] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     
@@ -26,12 +26,12 @@ function DashboardAside({ arr = [] }) {
                         </a>
                     </li>
                     {
-                        arr.map((item, index) => (
-                            <li key={index}
+                        arr.map((item) => (
+                            <li key={item.id}
                                 className="transition-transform duration-200 transform hover:bg-blue-700 rounded-md group"
                             >
                                 <button
-                                    onClick={() => console.log(`Clicked on ${item.name}`)}
+                                    onClick={() => setPage(item.id)}
                                     className="flex items-center justify-between w-full p-2 text-gray-400 hover:text-white transition-colors focus:outline-none"
                                 >
                                     <div className="flex items-center">

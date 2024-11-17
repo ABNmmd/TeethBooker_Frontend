@@ -1,25 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DashboardAside from './DashboardAside';
 import { FaUserDoctor } from "react-icons/fa6";
 import { FaHistory, FaCalendarAlt } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 
 const arr = [
-    {name: 'My Appointments', icon: <FaCalendarAlt className='mr-4' />},
-    {name: 'Doctors', icon: <FaUserDoctor className='mr-4' />},
-    {name: 'History', icon: <FaHistory className='mr-4' />},
-    {name: 'Settings', icon: <IoSettingsOutline className='mr-4' />},
+    { id: 1, name: 'My Appointments', icon: <FaCalendarAlt className='mr-4' />, component: <MyAppointments/> },
+    { id: 2, name: 'Doctors', icon: <FaUserDoctor className='mr-4' />, component: <DoctorsListing/> },
+    { id: 3, name: 'History', icon: <FaHistory className='mr-4' />, component: <PatientHistory/> },
+    { id: 4, name: 'Settings', icon: <IoSettingsOutline className='mr-4' />, component: <Settings/> },
 ];
 
 function PatientDashboard() {
+    const [page, setPage] = useState(0);
     return (
         <div className="flex min-h-screen bg-white">
-            <DashboardAside arr={arr} />
+            <DashboardAside arr={arr} setPage={setPage} />
             <div className="flex-1 p-6 bg-gray-100">
-                <h1 className="text-3xl font-bold mb-4">Patient Dashboard</h1>
-                <p className="text-gray-700">
-                    Welcome to your dashboard! Here you can manage your appointments, view your medical history, and more.
-                </p>
+                {
+                    page == 0
+                        ? <MainDashboardPatient />
+                        : arr[page - 1].component
+                }
             </div>
         </div>
     )
