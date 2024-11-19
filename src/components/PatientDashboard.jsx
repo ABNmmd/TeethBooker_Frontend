@@ -22,7 +22,7 @@ function PatientDashboard() {
     return (
         <div className="flex min-h-screen bg-white">
             <DashboardAside arr={arr} setPage={setPage} />
-            <div className="flex-1 p-6 bg-gray-100">
+            <div className="flex-1 p-6 bg-gray-100 h-screen overflow-y-scroll">
                 {
                     page == 0
                         ? <DashboardDefult />
