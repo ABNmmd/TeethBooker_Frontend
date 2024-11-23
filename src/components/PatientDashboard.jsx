@@ -11,10 +11,10 @@ import Settings from './Settings';
 import DashboardDefult from './DashboardDefult';
 
 const arr = [
-    { id: 1, name: 'My Appointments', icon: <FaCalendarAlt className='mr-4' />, component: <MyAppointments /> },
-    { id: 2, name: 'Doctors', icon: <FaUserDoctor className='mr-4' />, component: <DoctorsListing /> },
-    { id: 3, name: 'History', icon: <FaHistory className='mr-4' />, component: <PatientHistory /> },
-    { id: 4, name: 'Settings', icon: <IoSettingsOutline className='mr-4' />, component: <Settings /> },
+    { id: 1, name: 'My Appointments', icon: <FaCalendarAlt className='' />, component: <MyAppointments /> },
+    { id: 2, name: 'Doctors', icon: <FaUserDoctor className='' />, component: <DoctorsListing /> },
+    { id: 3, name: 'History', icon: <FaHistory className='' />, component: <PatientHistory /> },
+    { id: 4, name: 'Settings', icon: <IoSettingsOutline className='' />, component: <Settings /> },
 ];
 
 function PatientDashboard() {
