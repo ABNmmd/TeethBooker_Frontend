@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login"
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
+import PatientDashboard from "./components/PatientDashboard";
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: null,
+      element: <PatientDashboard />,
     }
   ]);
 
