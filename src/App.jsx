@@ -25,7 +25,7 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <PatientDashboard />,
+      element: null,
     }
   ]);
 
