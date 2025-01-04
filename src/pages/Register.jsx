@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import PatientRegister from '../components/PatientRegister'
-import DoctorRegister from '../components/DoctorRegister';
+import PatientRegister from '../components/Register/PatientRegister';
+import DoctorRegister from '../components/Register/DoctorRegister';
 
 export default function Register() {
 

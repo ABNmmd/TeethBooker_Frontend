@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DashboardAside from './DashboardAside';
+import DashboardAside from '../DashboardAside';
 import { FaUserDoctor } from "react-icons/fa6";
 import { FaHistory, FaCalendarAlt } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -7,8 +7,8 @@ import { IoSettingsOutline } from "react-icons/io5";
 import MyAppointments from './MyAppointments';
 import DoctorsListing from './DoctorsListing';
 import PatientHistory from './PatientHistory';
-import Settings from './Settings';
-import DashboardDefult from './DashboardDefult';
+import Settings from '../Settings';
+import DashboardDefult from '../DashboardDefult';
 
 const arr = [
     { id: 1, name: 'My Appointments', icon: <FaCalendarAlt className='' />, component: <MyAppointments /> },
