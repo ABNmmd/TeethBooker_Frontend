@@ -34,17 +34,17 @@ const MainProvider = ({ children }) => {
                 //request to get user authentiticated
                 const fetchUser = async () => {
                     if(token) {
-                    try {
-                        const response = await api.get(`/user`, {
-                            headers: {
-                                'Authorization': `Bearer ${token}`,
-                            }
-                        });
-                        setUser(response.data);
-                    } catch (error) {
-                        console.error("Error fetching user data: ", error);
+                        try {
+                            const response = await api.get(`/user`, {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`,
+                                }
+                            });
+                            setUser(response.data);
+                        } catch (error) {
+                            console.error("Error fetching user data: ", error);
+                        }
                     }
-                }
                 };
 
                 fetchUser();

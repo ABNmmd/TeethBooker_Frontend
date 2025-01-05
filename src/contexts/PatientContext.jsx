@@ -8,7 +8,8 @@ const PatientContext = createContext();
 const PatientProvider = ({ children }) => {
     const {user} = useContext(MainContext);
     const {token} = useContext(MainContext);
-    const [patient, setPatient] = useState({}); // save patient data
+    const [patient, setTpatient] = useState({}); // Authentified patient
+    const [targetPatient, setTargetPatient] = useState({}); // target patient
 
     // to get patient data
     const getPatient = async (id) => {
@@ -18,6 +19,7 @@ const PatientProvider = ({ children }) => {
                     'Authorization': `Bearer ${token}`,
                 }
             });
+            setTargetPatient(patientData);
             return patientData;
         } catch (error) {
             console.error('Error fetching the patient data ', error);
@@ -59,7 +61,7 @@ const PatientProvider = ({ children }) => {
     }, [user]);
 
     return (
-        <PatientContext.Provider value={{getPatient, updatePatient, deletePatient }}>
+        <PatientContext.Provider value={{getPatient, updatePatient, deletePatient, targetPatient ,setTargetPatient}}>
             {children}
         </PatientContext.Provider>
     );

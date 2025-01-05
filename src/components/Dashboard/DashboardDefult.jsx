@@ -10,8 +10,8 @@ const dentists = [
 const appointments = [
     { id: 1, dentist: 'D. Ahmed', date: '2023-10-30', time: '10:00 AM', price: '$100' },
     { id: 2, dentist: 'D. Amale', date: '2023-10-25', time: '11:00 AM', price: '$150' },
-    { id: 1, dentist: 'D. Ahmed', date: '2023-10-30', time: '10:00 AM', price: '$100' },
-    { id: 2, dentist: 'D. Amale', date: '2023-10-25', time: '11:00 AM', price: '$150' },
+    { id: 3, dentist: 'D. Ahmed', date: '2023-10-30', time: '10:00 AM', price: '$100' },
+    { id: 4, dentist: 'D. Amale', date: '2023-10-25', time: '11:00 AM', price: '$150' },
 ];
 
 const upcomingReservations = [

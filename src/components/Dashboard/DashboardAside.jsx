@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { RxDashboard } from "react-icons/rx";
 import { MdOutlineExpandMore, MdArrowForwardIos } from "react-icons/md";
 import { CgMenu, CgMenuMotion } from "react-icons/cg";
+import { MainContext } from '../../contexts/MainContext';
 
 function DashboardAside({ arr = [], setPage }) {
     // const [sideBar, setSideBar] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+    const {user} = useContext(MainContext);
 
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible)
@@ -55,8 +58,8 @@ function DashboardAside({ arr = [], setPage }) {
                     {isSidebarVisible && (
                         <>
                             <div className="ml-4">
-                                <p className="text-gray-800 text-sm">John Doe</p>
-                                <p className="text-gray-600 text-sm">john.doe@example.com</p>
+                                <p className="text-gray-800 text-sm">{user?.full_name}</p>
+                                <p className="text-gray-600 text-sm">{user?.email}</p>
                             </div>
                             <button
                                 aria-label="Expand user options"

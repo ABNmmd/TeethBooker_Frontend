@@ -1,11 +1,12 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login"
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
-import PatientDashboard from "./components/Dashboard/Patient Dashboard/PatientDashboard";
 import { DoctorProvider } from "./contexts/DoctorContext";
 import { PatientProvider } from "./contexts/PatientContext";
 import { MainProvider } from "./contexts/MainContext";
+import Dashboard from "./components/Dashboard/Dashboard";
+import { ReservationProvider } from "./contexts/ReservationContext";
 
 
 function App() {
@@ -28,20 +29,22 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <PatientDashboard />,
+      element: <Dashboard />,
     }
   ]);
 
 
 
   return (
-    <MainProvider>
-      <DoctorProvider>
-        <PatientProvider>
-          <RouterProvider router={router} />
-        </PatientProvider>
-      </DoctorProvider>
-    </MainProvider>
+      <MainProvider>
+        <DoctorProvider>
+          <PatientProvider>
+            <ReservationProvider>
+              <RouterProvider router={router} />
+            </ReservationProvider>
+          </PatientProvider>
+        </DoctorProvider>
+      </MainProvider>
   )
 }
 
