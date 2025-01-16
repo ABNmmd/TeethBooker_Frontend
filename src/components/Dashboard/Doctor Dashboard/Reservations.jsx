@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ReservationContext } from '../../../contexts/ReservationContext';
 import { MainContext } from '../../../contexts/MainContext';
 import { DoctorContext } from '../../../contexts/DoctorContext';
@@ -8,11 +8,14 @@ export default function Reservations() {
 
   
 
-    const {reservations,setReservations, getReservation} = useContext(ReservationContext);
+    const {reservations,setReservations, getReservation,updateReservation,createPatientHistory} = useContext(ReservationContext);
     const {getDoctor} = useContext(DoctorContext);
     const {getPatient} = useContext(PatientContext);
     const {user} = useContext(MainContext);
 
+    const [history, setHistory] = useState(false);
+    const [targetId, setTargetId] = useState(null);
+    const [description, setDescription] = useState('');
     
     useEffect(() => {
       if (user) {
@@ -20,6 +23,63 @@ export default function Reservations() {
         getReservation();
       }
     }, [user]);
+
+    function handleStatusChange(id,statusTarget) {
+
+          setReservations((prevReservations) => 
+            prevReservations.map((reservation) =>
+                reservation.id === id
+                    ? { ...reservation, status: 'Loading ...' }
+                    : reservation
+              )
+          );
+
+          if(statusTarget == 'done'){
+            setHistory(true);
+            setTargetId(id);
+          }else{
+            updateReservation(id,statusTarget)
+            .then((updatedReservation) => {
+              if (updatedReservation) {
+                    setReservations((prevReservations) => 
+                      prevReservations.map((reservation) =>
+                          reservation.id === id
+                              ? { ...reservation, status: statusTarget }
+                              : reservation
+                      )
+                    );
+                  }
+              
+            })
+            .catch((error) => {
+              console.error("Failed to update reservation status:", error);
+            });
+          }
+        
+    }
+
+    function updateToDone(reservation_id){
+
+      createPatientHistory(reservation_id,description);
+      
+      updateReservation(reservation_id,'done')
+      .then((updatedReservation) => {
+        if (updatedReservation) {
+          setReservations((prevReservations) => 
+            prevReservations.map((reservation) =>
+                reservation.id === reservation_id
+                    ? { ...reservation, status: 'done' }
+                    : reservation
+            )
+          );
+          setHistory(false);
+        }
+        
+      })
+      .catch((error) => {
+        console.error("Failed to update reservation status:", error);
+      });
+    }    
     
     
   return (
@@ -32,7 +92,8 @@ export default function Reservations() {
             <th className="border border-gray-300 px-4 py-2">Description</th>
             <th className="border border-gray-300 px-4 py-2">Price</th>
             <th className="border border-gray-300 px-4 py-2">Status</th>
-            <th className="border border-gray-300 px-4 py-2">Action</th>
+            <th className="border border-gray-300 px-4 py-2">Update Satatus</th>
+            <th className={`border border-gray-300 px-4 py-2 ${history ? '' : 'hidden'}`}>description</th>
           </tr>
         </thead>
         <tbody>
@@ -55,15 +116,21 @@ export default function Reservations() {
                   {reservation.status}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 space-x-2">
-                  <button class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-                      View
-                  </button>
-                  <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                      Update
-                  </button>
-                    <button class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-                        Delete
-                    </button>
+                    <select id="status"
+                            name="status"
+                            onChange={(e) => handleStatusChange(reservation.id, e.target.value)}
+                            className="border border-gray-300 px-4 py-2">
+                      <option value={`${reservation.status}`}>Choose status</option>
+                      <option value="not yet">Not yet</option>
+                      <option value="in process">In process</option>
+                      <option value="done">Done</option> 
+                      <option value="declined">Declined</option> 
+                      <option value="canceled">Canceled</option> 
+                    </select>
+                </td>
+                <td className={`flex flex-row border space-x-4 items-center justify-center border-gray-300 px-4 py-2 ${history && reservation.id == targetId ? '' : 'hidden'}`}>
+                  <textarea value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                  <button onClick={() => updateToDone(reservation.id)}  className='px-2 py-1 text-xs font-medium text-white bg-blue-500 rounded shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300'>Update</button>
                 </td>
               </tr>
             ))

@@ -58,7 +58,9 @@ const ReservationProvider = ({ children }) => {
     }
 
     // update reservation
-    const updateReservation = async (reservationId, data) => {
+    const updateReservation = async (reservationId, status) => {
+
+        const data = {status}
         try {
             const response = await api.put(`/reservation/${reservationId}`, data, {
                 headers: {
@@ -86,9 +88,10 @@ const ReservationProvider = ({ children }) => {
     }
 
     // create patient history
-    const createPatientHistory = async (data) => {
+    const createPatientHistory = async (reservation_id,doctor_description) => {
+        const payload = { doctor_description }; // Send a simple object
         try {
-            const response = await api.post('/reservation_history', data, {
+            const response = await api.post(`/reservation_history/${reservation_id}`, payload, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 }
