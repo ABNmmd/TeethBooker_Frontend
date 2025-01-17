@@ -24,15 +24,7 @@ function DashboardAside({ arr = [], setPage }) {
                 </button>
             </div>
             <nav className={`flex flex-col items-center flex-grow `}>
-                <ul className={`flex-grow space-y-4 mb-auto ${isSidebarVisible && "w-full"}`}>
-                    <li className="transition-transform duration-200 transform hover:bg-blue-700 rounded-md group">
-                        <a href="/dashboard" aria-label="Dashboard"
-                            className={`${isSidebarVisible && "flex items-center text-base"} text-xl block text-gray-500 w-full p-2 hover:text-white transition-colors focus:outline-none`}
-                        >
-                            <RxDashboard className="" />
-                            {isSidebarVisible && <span className="ml-8 capitalize">Dashboard</span>}
-                        </a>
-                    </li>
+                <ul className={`flex-grow space-y-4 mb-auto ${isSidebarVisible ? "w-full" : ""}`}>
                     {
                         arr.map((item) => (
                             <li key={item.id}
@@ -40,9 +32,9 @@ function DashboardAside({ arr = [], setPage }) {
                             >
                                 <button
                                     onClick={() => setPage(item.id)}
-                                    className={`${isSidebarVisible && "flex items-center justify-between text-base"} text-xl block w-full p-2 text-gray-400 hover:text-white transition-colors focus:outline-none`}
+                                    className={`${isSidebarVisible ? "flex items-center justify-between text-base" : ""} text-xl block w-full p-2 text-gray-400 hover:text-white transition-colors focus:outline-none`}
                                 >
-                                    <div className={isSidebarVisible && "flex items-center"}>
+                                    <div className={isSidebarVisible ? "flex items-center" : ""}>
                                         {item.icon}
                                         {isSidebarVisible && <span className="ml-8 capitalize">{item.name}</span>}
                                     </div>

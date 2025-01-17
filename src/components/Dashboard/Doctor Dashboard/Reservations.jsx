@@ -116,7 +116,7 @@ export default function Reservations() {
                   {reservation.status}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 space-x-2">
-                    <select id="status"
+                    <select disabled={reservation.status == 'done'} id="status"
                             name="status"
                             onChange={(e) => handleStatusChange(reservation.id, e.target.value)}
                             className="border border-gray-300 px-4 py-2">

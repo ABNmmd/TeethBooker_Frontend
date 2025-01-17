@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import DashboardAside from '../DashboardAside';
-import { FaHistory, FaCalendarAlt,FaStethoscope } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
 import { IoSettingsOutline,IoAnalytics  } from "react-icons/io5";
+import { RxDashboard } from "react-icons/rx";
+
 
 import Settings from '../Settings';
-import DashboardDefult from '../DashboardDefult';
+import DashboardDefult from '../Doctor Dashboard/DashboardDefult';
 import Reservations from './Reservations';
-import MyPatients from './MyPatients';
 import Analytics from './Analytics';
 
 const arr = [
-    { id: 1, name: 'Reservations', icon: <FaCalendarAlt className='' />, component: <Reservations /> },
-    { id: 2, name: 'My Patients', icon: <FaStethoscope className='' />, component: <MyPatients /> },
+    { id: 1, name: 'Dashboard', icon: <RxDashboard className='' />, component: <DashboardDefult /> },
+    { id: 2, name: 'Reservations', icon: <FaCalendarAlt className='' />, component: <Reservations /> },
     { id: 3, name: 'Analytics', icon: <IoAnalytics className='' />, component: <Analytics /> },
     { id: 4, name: 'Settings', icon: <IoSettingsOutline className='' />, component: <Settings /> },
 ];

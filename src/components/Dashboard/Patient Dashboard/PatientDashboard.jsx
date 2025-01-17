@@ -8,7 +8,7 @@ import MyAppointments from './MyAppointments';
 import DoctorsListing from './DoctorsListing';
 import PatientHistory from './PatientHistory';
 import Settings from '../Settings';
-import DashboardDefult from '../DashboardDefult';
+import DashboardDefult from '../Patient Dashboard/DashboardDefult';
 
 const arr = [
     { id: 1, name: 'My Appointments', icon: <FaCalendarAlt className='' />, component: <MyAppointments /> },

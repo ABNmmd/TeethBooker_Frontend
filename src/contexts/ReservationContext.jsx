@@ -108,6 +108,7 @@ const ReservationProvider = ({ children }) => {
             value={{
                 createReservation,
                 getReservation,
+                getTodayReservation,
                 updateReservation,
                 getPatientHistory,
                 createPatientHistory,
