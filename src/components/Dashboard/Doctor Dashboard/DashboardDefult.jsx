@@ -2,16 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { FaBell } from 'react-icons/fa';
 import { MainContext } from '../../../contexts/MainContext';
 import { ReservationContext } from '../../../contexts/ReservationContext';
+import { LineChart } from '@mui/x-charts/LineChart';
 
 
-const dentists = [
-    { id: 1, name: 'D. Ahmed', image: 'https://via.placeholder.com/50' },
-    { id: 2, name: 'D. Amale', image: 'https://via.placeholder.com/50' },
-    { id: 3, name: 'D. Bilal', image: 'https://via.placeholder.com/50' },
-    { id: 4, name: 'D. Anas', image: 'https://via.placeholder.com/50' },
-];
 
 function DashboardDefult() {
+
+    const d = new Date();
 
     const {getTodayReservation,todayReservations,getReservation,reservations} = useContext(ReservationContext);
     const {user} = useContext(MainContext);
@@ -20,17 +17,12 @@ function DashboardDefult() {
     const [reservationsHistory,setReservationsHistory] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isLoading2, setIsLoading2] = useState(true);
+    const [currentYear, setCurrentYear] = useState(d.getFullYear());
 
     useEffect(() => {
         if (user) {
             setIsLoading(true);
             getTodayReservation()
-                .then(() => {
-                    setUpcomingReservations(todayReservations?.reservations);
-                })
-                .catch((error) => {
-                    console.error("Error fetching reservations:", error);
-                 })
                 .finally(() => setIsLoading(false));  
 
             setIsLoading2(true);
@@ -58,22 +50,115 @@ function DashboardDefult() {
 
         const [day, month, year] = date.split('-');
         const dateTarget = new Date(`${year}-${month}-${day}`);
+        dateTarget.setHours(0, 0, 0, 0);
 
-        if (today > dateTarget) return 1;
+        return today >= dateTarget;
+    }
+
+    function equalDates(date){
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const [day, month, year] = date.split('-');
+        const dateTarget = new Date(`${year}-${month}-${day}`);
+
+        dateTarget.setHours(0, 0, 0, 0);
+
+
+        if (today.getTime() == dateTarget.getTime()) return 1;
         else return 0;
     }
 
     function calculeRevenue() {
         let revenue = 0;
-        reservations.forEach(reserv => {
-            if(reserv.status == 'done' && compareWithTodayDate(reserv.date)){
-                revenue = revenue + reserv.price;
-            }
-        });
+            reservations.forEach(reserv => {
+                if(reserv.status == 'done' && equalDates(reserv.date)){
+                    revenue = revenue + reserv.price;
+                }
+            });
+            return revenue;
+    }    
 
-        return revenue;
+    
+
+    function splitReservationDate(date) {
+        const [day, month, year] = date.split('-');
+        return { day, month, year };
     }
+
+    function removeDuplicates(arr) {
+        return [...new Set(arr)];
+    }
+
+    function monthsData(){
+        let reservationMonths = [];
+        reservationsHistory.forEach((reserv) => {
+            const { year: reservationYear, month: reservationMonth } = splitReservationDate(reserv.date);
+            if (
+              // add compareWithToday function (later)
+              reserv.status == 'done' &&
+              reservationYear == currentYear
+            ) {
+              reservationMonths.push(parseInt(reservationMonth));
+            }
+          });
+
+        return reservationMonths;
+    }
+
+    let finalMonthData = removeDuplicates(monthsData());
+
+    function revenuesData() {
+        let revenues = Array(12).fill(0); // Initialize with 12 months and 0 revenue for each
+        let filteredReservations = reservationsHistory?.filter(checkDoneAndOld);
       
+        filteredReservations.forEach((reservation) => {
+          const { month } = splitReservationDate(reservation.date);
+          const monthIndex = month - 1; // Adjust for 0-based indexing
+      
+          if (monthIndex >= 0 && monthIndex < 12) {
+            revenues[monthIndex] += reservation.price;
+          }
+        });
+      
+        return revenues;
+    }  
+
+    function reservationsData() {
+        let reservationsNumber = Array(12).fill(0); // Initialize with 12 months and 0 revenue for each
+        let filteredReservations = reservationsHistory?.filter(checkDoneAndOld);
+      
+        filteredReservations.forEach((reservation) => {
+          const { month } = splitReservationDate(reservation.date);
+          const monthIndex = month - 1; // Adjust for 0-based indexing
+      
+          if (monthIndex >= 0 && monthIndex < 12) {
+            reservationsNumber[monthIndex] += 1;
+          }
+        });
+      
+        return reservationsNumber;
+    } 
+
+    const monthsOfYear = [1,2,3,4,5,6,7,8,9,10,11,12];
+      
+
+    function checkDoneAndOld(reservation){
+        const { year: reservationYear, month: reservationMonth } = splitReservationDate(reservation.date);
+        return  reservation.status == 'done' &&
+                reservationYear == currentYear;
+                // add compareWithToday function (later)
+    }
+
+    const thisYear = d.getFullYear();
+
+    const handleYearChange = (event) => {
+        setCurrentYear(parseInt(event.target.value)); 
+      };
+
+      console.log(currentYear);
+      
+    
 
     return (
         <div className="grid grid-cols-1 gap-6 px-6">
@@ -121,14 +206,13 @@ function DashboardDefult() {
                     }
                 </div>
 
-                {/* Top Dentists Box */}
+                {/* Today revenue */}
                 <div className="bg-white shadow-md rounded-lg p-4">
                     <h2 className="text-xl font-semibold">Today Revenue</h2>
                     {
                         isLoading2 ? ( <div>Loading...</div> ) : (
                             <div className="bg-white shadow-md rounded-lg p-4">
                                 <p className="text-2xl font-semibold text-green-500">{calculeRevenue()} $</p>
-                                <button className="mt-4 bg-blue-500 text-white rounded-lg px-4 py-2">View More Stats</button>
                             </div>
                         )
                     }
@@ -137,7 +221,7 @@ function DashboardDefult() {
 
                 {/* Last Appointment History Box */}
                 <div className="bg-white shadow-md rounded-lg p-4 md:col-span-2">
-                    <h2 className="text-xl font-semibold">Last Appointment History</h2>
+                    <h2 className="text-xl font-semibold">Reservations History</h2>
                     {
                         isLoading2 ? ( <div>Loading...</div> ) : 
                         (
@@ -165,6 +249,56 @@ function DashboardDefult() {
                             </table>
                         )
                     }
+                </div>
+
+                <div className="bg-white shadow-md rounded-lg p-4">
+                    <h2 className="text-xl font-semibold">Monthly Reservations</h2>
+                    {
+                        isLoading2 ? ( <div>Loading...</div> ) : (
+                            <LineChart
+                                xAxis={[{ data: monthsOfYear }]}
+                                series={[
+                                    {
+                                    data: reservationsData(),
+                                    },
+                                ]}
+                                width={500}
+                                height={300}
+                            />
+                        )
+                    }
+                    
+                </div>
+
+                {/* Total Revenue */}
+                <div className="bg-white shadow-md rounded-lg p-4">
+                    <div className='flex flex-row justify-center items-center space-x-4'>
+                        <h2 className="text-xl font-semibold">Monthly Revenue</h2>
+                        <select 
+                            value={currentYear} 
+                            onChange={handleYearChange} 
+                        >
+                            <option value={`${thisYear}`}>{thisYear}</option>
+                            <option value={`${thisYear-1}`}>{thisYear-1}</option>
+                            <option value={`${thisYear-2}`}>{thisYear-2}</option>
+                            <option value={`${thisYear-3}`}>{thisYear-3}</option>
+                        </select>
+                    </div>
+                    {
+                        isLoading2 ? ( <div>Loading...</div> ) : (
+                            <LineChart
+                                xAxis={[{ data: monthsOfYear }]}
+                                series={[
+                                    {
+                                    data: revenuesData(),
+                                    },
+                                ]}
+                                width={500}
+                                height={300}
+                            />
+                        )
+                    }
+                    
                 </div>
             </div>
         </div>

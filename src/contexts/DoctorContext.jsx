@@ -18,21 +18,21 @@ const DoctorProvider = ({ children }) => {
                     'Authorization': `Bearer ${token}`,
                 }
             });
-            setTargetDoctor(doctorData);
-            return doctorData;
+            return doctorData.data;
         } catch (error) {
             console.error('Error fetching the doctor data ', error);
         }
     }
 
     // update doctor data
-    const updateDoctor = async (id, newPatientData) => {
+    const updateDoctor = async (id, newDoctorData) => {
         try {
-            const response = await api.put(`/doctor/${id}`, newPatientData, {
+            const response = await api.put(`/doctor/${id}`, newDoctorData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 }
             });
+            document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; HttpOnly; SameSite=Strict`;
             return response;
         } catch (error) {
             console.error('Error updating the doctor ', error);
@@ -53,14 +53,10 @@ const DoctorProvider = ({ children }) => {
         }
     }
 
-    useEffect(() => {
-        if(user?.role == "doctor"){
-            setDoctor(getDoctor(user?.id));
-        }
-    }, [user]);
+    
 
     return (
-        <DoctorContext.Provider value={{getDoctor, updateDoctor, deleteDoctor }}>
+        <DoctorContext.Provider value={{getDoctor, updateDoctor, deleteDoctor ,doctor}}>
             {children}
         </DoctorContext.Provider>
     );

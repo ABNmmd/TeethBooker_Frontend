@@ -1,10 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react';
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { RxDashboard } from "react-icons/rx";
 import { MdOutlineExpandMore, MdArrowForwardIos } from "react-icons/md";
 import { CgMenu, CgMenuMotion } from "react-icons/cg";
 import { MainContext } from '../../contexts/MainContext';
+import { logout } from '../../services/auth';
 
 function DashboardAside({ arr = [], setPage }) {
+
+
     // const [sideBar, setSideBar] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
@@ -14,6 +18,17 @@ function DashboardAside({ arr = [], setPage }) {
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible)
     }
+
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate("/login")
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
     return (
         <aside className={`bg-white h-screen w-fit p-4 shadow-md flex ${!isSidebarVisible && "items-center"} flex-col transition-all duration-300 ease-in-out`}>
@@ -66,8 +81,7 @@ function DashboardAside({ arr = [], setPage }) {
                         <div className="absolute right-0 bottom-11 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
                             <ul className="py-2">
                                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Profile</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Logout</li>
+                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>Logout</li>
                             </ul>
                         </div>
                     )}

@@ -13,8 +13,7 @@ import Analytics from './Analytics';
 const arr = [
     { id: 1, name: 'Dashboard', icon: <RxDashboard className='' />, component: <DashboardDefult /> },
     { id: 2, name: 'Reservations', icon: <FaCalendarAlt className='' />, component: <Reservations /> },
-    { id: 3, name: 'Analytics', icon: <IoAnalytics className='' />, component: <Analytics /> },
-    { id: 4, name: 'Settings', icon: <IoSettingsOutline className='' />, component: <Settings /> },
+    { id: 3, name: 'Settings', icon: <IoSettingsOutline className='' />, component: <Settings /> },
 ];
 
 function DoctorDashboard() {
