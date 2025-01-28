@@ -8,7 +8,6 @@ import { RxDashboard } from "react-icons/rx";
 import Settings from '../Settings';
 import DashboardDefult from '../Doctor Dashboard/DashboardDefult';
 import Reservations from './Reservations';
-import Analytics from './Analytics';
 
 const arr = [
     { id: 1, name: 'Dashboard', icon: <RxDashboard className='' />, component: <DashboardDefult /> },

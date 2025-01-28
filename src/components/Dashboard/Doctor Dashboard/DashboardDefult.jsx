@@ -154,10 +154,7 @@ function DashboardDefult() {
 
     const handleYearChange = (event) => {
         setCurrentYear(parseInt(event.target.value)); 
-      };
-
-      console.log(currentYear);
-      
+    };      
     
 
     return (
