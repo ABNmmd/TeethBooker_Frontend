@@ -1,5 +1,5 @@
 import React , {useState,useEffect} from 'react'
-import { registerDoctor } from '../services/auth';
+import { registerDoctor } from '../../services/auth';
 import { useNavigate } from 'react-router-dom';
 
 const inp = "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300";

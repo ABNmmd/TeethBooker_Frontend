@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaBell } from 'react-icons/fa';
+import { MainContext } from '../../../contexts/MainContext';
+
 
 const dentists = [
     { id: 1, name: 'D. Ahmed', image: 'https://via.placeholder.com/50' },
@@ -10,8 +12,8 @@ const dentists = [
 const appointments = [
     { id: 1, dentist: 'D. Ahmed', date: '2023-10-30', time: '10:00 AM', price: '$100' },
     { id: 2, dentist: 'D. Amale', date: '2023-10-25', time: '11:00 AM', price: '$150' },
-    { id: 1, dentist: 'D. Ahmed', date: '2023-10-30', time: '10:00 AM', price: '$100' },
-    { id: 2, dentist: 'D. Amale', date: '2023-10-25', time: '11:00 AM', price: '$150' },
+    { id: 3, dentist: 'D. Ahmed', date: '2023-10-30', time: '10:00 AM', price: '$100' },
+    { id: 4, dentist: 'D. Amale', date: '2023-10-25', time: '11:00 AM', price: '$150' },
 ];
 
 const upcomingReservations = [
@@ -20,12 +22,15 @@ const upcomingReservations = [
 ];
 
 function DashboardDefult() {
+
+    const {user} = useContext(MainContext);
+
     return (
         <div className="grid grid-cols-1 gap-6 px-6">
             {/* Welcome Message and Search Box */}
             <div className="bg-white shadow-md rounded-lg p-4 flex items-center justify-between">
                 <div>
-                    <h2 className="text-xl font-semibold">Hello, John Doe</h2>
+                    <h2 className="text-xl font-semibold">Hello, {user?.full_name}</h2>
                 </div>
                 <div className="flex items-center space-x-4">
                     <input

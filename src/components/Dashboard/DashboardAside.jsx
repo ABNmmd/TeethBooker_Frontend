@@ -1,16 +1,34 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react';
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { RxDashboard } from "react-icons/rx";
 import { MdOutlineExpandMore, MdArrowForwardIos } from "react-icons/md";
 import { CgMenu, CgMenuMotion } from "react-icons/cg";
+import { MainContext } from '../../contexts/MainContext';
+import { logout } from '../../services/auth';
 
 function DashboardAside({ arr = [], setPage }) {
+
+
     // const [sideBar, setSideBar] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
+    const {user} = useContext(MainContext);
+
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible)
     }
+
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate("/login")
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
     return (
         <aside className={`bg-white h-screen w-fit p-4 shadow-md flex ${!isSidebarVisible && "items-center"} flex-col transition-all duration-300 ease-in-out`}>
@@ -21,15 +39,7 @@ function DashboardAside({ arr = [], setPage }) {
                 </button>
             </div>
             <nav className={`flex flex-col items-center flex-grow `}>
-                <ul className={`flex-grow space-y-4 mb-auto ${isSidebarVisible && "w-full"}`}>
-                    <li className="transition-transform duration-200 transform hover:bg-blue-700 rounded-md group">
-                        <a href="/dashboard" aria-label="Dashboard"
-                            className={`${isSidebarVisible && "flex items-center text-base"} text-xl block text-gray-500 w-full p-2 hover:text-white transition-colors focus:outline-none`}
-                        >
-                            <RxDashboard className="" />
-                            {isSidebarVisible && <span className="ml-8 capitalize">Dashboard</span>}
-                        </a>
-                    </li>
+                <ul className={`flex-grow space-y-4 mb-auto ${isSidebarVisible ? "w-full" : ""}`}>
                     {
                         arr.map((item) => (
                             <li key={item.id}
@@ -37,9 +47,9 @@ function DashboardAside({ arr = [], setPage }) {
                             >
                                 <button
                                     onClick={() => setPage(item.id)}
-                                    className={`${isSidebarVisible && "flex items-center justify-between text-base"} text-xl block w-full p-2 text-gray-400 hover:text-white transition-colors focus:outline-none`}
+                                    className={`${isSidebarVisible ? "flex items-center justify-between text-base" : ""} text-xl block w-full p-2 text-gray-400 hover:text-white transition-colors focus:outline-none`}
                                 >
-                                    <div className={isSidebarVisible && "flex items-center"}>
+                                    <div className={isSidebarVisible ? "flex items-center" : ""}>
                                         {item.icon}
                                         {isSidebarVisible && <span className="ml-8 capitalize">{item.name}</span>}
                                     </div>
@@ -55,8 +65,8 @@ function DashboardAside({ arr = [], setPage }) {
                     {isSidebarVisible && (
                         <>
                             <div className="ml-4">
-                                <p className="text-gray-800 text-sm">John Doe</p>
-                                <p className="text-gray-600 text-sm">john.doe@example.com</p>
+                                <p className="text-gray-800 text-sm">{user?.full_name}</p>
+                                <p className="text-gray-600 text-sm">{user?.email}</p>
                             </div>
                             <button
                                 aria-label="Expand user options"
@@ -71,8 +81,7 @@ function DashboardAside({ arr = [], setPage }) {
                         <div className="absolute right-0 bottom-11 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
                             <ul className="py-2">
                                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Profile</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Logout</li>
+                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>Logout</li>
                             </ul>
                         </div>
                     )}

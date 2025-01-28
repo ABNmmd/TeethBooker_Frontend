@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { login } from '../services/auth'
 import { Link, useNavigate } from 'react-router-dom';
 import { CiMail, CiRead, CiUnread } from "react-icons/ci";
+import { MainContext } from '../contexts/MainContext';
 
 const inputStyl = "w-full p-2 border border-gray-300 rounded-md focus:outline-none";
 
@@ -13,6 +14,8 @@ function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    const {setToken} = useContext(MainContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,9 +32,9 @@ function Login() {
         try {
             // API call to login
             const response = await login({ email, password });
-            console.log(response);
             const expires = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 days in milliseconds
             document.cookie = `token=${response.token}; expires=${expires.toUTCString()};`;
+            setToken(response.token);
             navigate("/dashboard");
         } catch (error) {
             console.log(error.message);
